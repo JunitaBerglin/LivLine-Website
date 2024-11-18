@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
+    <title>LivLine Simplifier</title>
+</head>
+<body>
+    <div  id="simplifyForm">
+        <div id="glassDiv">
+    <h1>LivLine Text Simplifier</h1>
+    <form>
+        <label for="inputText">Enter text to simplify:</label><br>
+        <textarea id="inputText" rows="4" cols="50"></textarea><br>
+        <button type="submit">Simplify</button>
+    </form>
+    <h2>Result:</h2>
+
+    <script>
+        const form = document.getElementById("simplifyForm");
+        form.onsubmit = async (e) => {
+            e.preventDefault();
+            const inputText = document.getElementById("inputText").value.trim();
+
+            try {
+                const response = await fetch("http://localhost:5052/simplify", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(inputText)
+                });
+
+                if (!response.ok) {
+                    document.getElementById("result").textContent = "Error: " + response.statusText;
+                    return;
+                }
+
+                const result = await response.json();
+                document.getElementById("result").textContent = result.simplified;
+            } catch (error) {
+                document.getElementById("result").textContent = "Error: " + error.message;
+            }
+        };
+    </script>
+    <p id="result"></p>
+</div>
+</div>
+</body>
+</html>
