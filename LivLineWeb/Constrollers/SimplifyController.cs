@@ -14,9 +14,15 @@ public class SimplifyController : ControllerBase
         _simplificationService = simplificationService;
     }
 
-    [HttpGet]
-    public string Get(string input)
+    [HttpPost]
+    public IActionResult SimplifyText([FromBody] string input)
     {
-        return _simplificationService.Simplify(input);
+        if (string.IsNullOrWhiteSpace(input))
+        {
+            return BadRequest("Input text cannot be empty.");
+        }
+
+        var simplifiedText = _simplificationService.Simplify(input);
+        return Ok(new { original = input, simplified = simplifiedText });
     }
 }

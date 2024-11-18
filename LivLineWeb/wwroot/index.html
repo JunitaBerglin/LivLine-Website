@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
+    <title>LivLine Simplifier</title>
+</head>
+<body>
+    <h1>LivLine Text Simplifier</h1>
+    <form id="simplifyForm">
+        <label for="inputText">Enter text to simplify:</label><br>
+        <textarea id="inputText" rows="4" cols="50"></textarea><br>
+        <button type="submit">Simplify</button>
+    </form>
+    <h2>Result:</h2>
+    <p id="result"></p>
+
+    <script>
+        const form = document.getElementById("simplifyForm");
+        form.onsubmit = async (e) => {
+            e.preventDefault();
+            const inputText = document.getElementById("inputText").value;
+
+            const response = await fetch("http://localhost:5000/simplify", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(inputText)
+            });
+
+            const result = await response.json();
+            document.getElementById("result").textContent = result.simplified;
+        };
+    </script>
+</body>
+</html>

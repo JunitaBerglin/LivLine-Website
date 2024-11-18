@@ -4,7 +4,8 @@ var app = builder.Build();
 
 builder.Services.AddScoped<SimplificationService>();
 
+app.UseStaticFiles();
 
-app.MapGet("/", () => "Hello World!");
+app.UseDefaultFiles();
 
 app.Run();
