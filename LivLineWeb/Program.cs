@@ -12,7 +12,7 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddControllers();
-builder.Services.AddScoped<SimplificationService>();
+builder.Services.AddScoped<ISimplificationService, SimplificationService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

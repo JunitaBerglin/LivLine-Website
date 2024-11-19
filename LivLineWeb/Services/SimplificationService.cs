@@ -1,5 +1,5 @@
 namespace LivLineWeb.Services;
-public class SimplificationService
+public class SimplificationService : ISimplificationService
 {
     private readonly Dictionary<string, string> _wordDictionary = new Dictionary<string, string>
     {
