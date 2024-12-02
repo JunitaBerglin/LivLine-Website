@@ -1,23 +1,73 @@
-namespace LivLineWeb.Services;
-public class SimplificationService : ISimplificationService
+namespace LivLineWeb.Services
 {
-    private readonly Dictionary<string, string> _wordDictionary = new Dictionary<string, string>
+    public class SimplificationService : ISimplificationService
     {
-        { "complicated", "simple" },
-        { "difficult", "hard" },
-        { "utilize", "use" }
-    };
-
-    public string Simplify(string input)
-    {
-        var words = input.Split(' ');
-        for (int i = 0; i < words.Length; i++)
-        {
-            if (_wordDictionary.ContainsKey(words[i].ToLower()))
+        private readonly Dictionary<string, string> _wordDictionary = new Dictionary<string, string>
             {
-                words[i] = _wordDictionary[words[i].ToLower()];
+    { "complicated", "simple" },
+    { "difficult", "hard" },
+    { "utilize", "use" },
+    { "demonstrate", "show" },
+    { "comprehend", "understand" },
+    { "assist", "help" },
+    { "commence", "start" },
+    { "terminate", "end" },
+    { "subsequent", "next" },
+    { "prior", "before" },
+    { "approximately", "about" },
+    { "endeavor", "try" },
+    { "contemplate", "think" },
+    { "obtain", "get" },
+    { "communique", "message" },
+    { "modify", "change" },
+    { "facilitate", "make easier" },
+    { "initiate", "begin" },
+    { "proceed", "go" },
+    { "sufficient", "enough" },
+    { "indicate", "show" },
+    { "discontinue", "stop" },
+    { "advantageous", "helpful" },
+    { "magnitude", "size" },
+    { "prohibit", "ban" },
+    { "implement", "carry out" },
+    { "ascertain", "find out" },
+    { "inquire", "ask" },
+    { "inform", "tell" },
+    { "observe", "see" },
+    { "perceive", "notice" },
+    { "authorize", "allow" },
+    { "eliminate", "remove" },
+    { "commensurate", "equal" },
+    { "adequate", "enough" },
+    { "disseminate", "spread" },
+    { "necessitate", "need" },
+    { "endeavored", "tried" },
+    { "articulate", "express" },
+    { "exhibit", "show" },
+    { "evaluate", "judge" },
+    { "scrutinize", "examine" },
+    { "acquire", "get" },
+    { "categorize", "classify" },
+    { "implement", "apply" },
+    { "collaborate", "work together" }
+        };
+        public string Simplify(string input)
+        {
+            if (string.IsNullOrWhiteSpace(input))
+            {
+                throw new ArgumentException("Input cannot be null or whitespace.", nameof(input));
             }
+
+            var words = input.Split(' ');
+            for (int i = 0; i < words.Length; i++)
+            {
+                var word = words[i].ToLower();
+                if (_wordDictionary.ContainsKey(word))
+                {
+                    words[i] = _wordDictionary[word];
+                }
+            }
+            return string.Join(' ', words);
         }
-        return string.Join(" ", words);
     }
 }

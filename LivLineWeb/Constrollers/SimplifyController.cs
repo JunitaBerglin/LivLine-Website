@@ -1,28 +1,37 @@
-using LivLineWeb.Services;
 using Microsoft.AspNetCore.Mvc;
+using LivLineWeb.Services;
 
-namespace LivLineWeb.Controllers;
-
-[ApiController]
-[Route("[controller]")]
-public class SimplifyController : ControllerBase
+namespace LivLineWeb.Controllers
 {
-    private readonly SimplificationService _simplificationService;
-
-    public SimplifyController(SimplificationService simplificationService)
+    public class SimplifyController : ControllerBase
     {
-        _simplificationService = simplificationService;
-    }
+        private readonly ISimplificationService _simplificationService;
 
-    [HttpPost]
-    public IActionResult SimplifyText([FromBody] string input)
-    {
-        if (string.IsNullOrWhiteSpace(input))
+        public SimplifyController(ISimplificationService simplificationService)
         {
-            return BadRequest("Input text cannot be empty.");
+            _simplificationService = simplificationService;
         }
 
-        var simplifiedText = _simplificationService.Simplify(input);
-        return Ok(new { original = input, simplified = simplifiedText });
+        [HttpPost]
+        public IActionResult SimplifyText([FromBody] dynamic body)
+        {
+            string input = body?.text ?? string.Empty;
+
+            if (string.IsNullOrWhiteSpace(input))
+            {
+                return BadRequest("Input cannot be null or whitespace.");
+            }
+
+            try
+            {
+                var simplifiedText = _simplificationService.Simplify(input);
+                return Ok(new { simplified = simplifiedText });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
     }
+
 }

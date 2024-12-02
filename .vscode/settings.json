@@ -1,0 +1,9 @@
+{
+    "editor.defaultFormatter": "GitHub.copilot",
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true,
+    "notebook.defaultFormatter": "GitHub.copilot",
+    "[csharp]": {
+        "editor.defaultFormatter": "ms-dotnettools.csharp"
+    }
+}
