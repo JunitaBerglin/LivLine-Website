@@ -3,6 +3,8 @@ using LivLineWeb.Services;
 
 namespace LivLineWeb.Controllers
 {
+    [ApiController]
+    [Route("api/[controller]")]
     public class SimplifyController : ControllerBase
     {
         private readonly ISimplificationService _simplificationService;
@@ -13,9 +15,8 @@ namespace LivLineWeb.Controllers
         }
 
         [HttpPost]
-        public IActionResult SimplifyText([FromBody] dynamic body)
+        public IActionResult SimplifyText([FromBody] string input)
         {
-            string input = body?.text ?? string.Empty;
 
             if (string.IsNullOrWhiteSpace(input))
             {

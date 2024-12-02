@@ -13,7 +13,7 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddControllers();
-builder.Services.AddScoped<ISimplificationService, SimplificationService>();
+builder.Services.AddSingleton<ISimplificationService, SimplificationService>(); // scope skapas per rquest och singleton skapas en gång skapar en 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

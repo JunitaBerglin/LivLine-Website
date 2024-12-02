@@ -2,8 +2,8 @@ namespace LivLineWeb.Services
 {
     public class SimplificationService : ISimplificationService
     {
-        private readonly Dictionary<string, string> _wordDictionary = new Dictionary<string, string>
-            {
+        private readonly Dictionary<string, string> _wordDictionary = new()
+        {
     { "complicated", "simple" },
     { "difficult", "hard" },
     { "utilize", "use" },
@@ -29,7 +29,6 @@ namespace LivLineWeb.Services
     { "advantageous", "helpful" },
     { "magnitude", "size" },
     { "prohibit", "ban" },
-    { "implement", "carry out" },
     { "ascertain", "find out" },
     { "inquire", "ask" },
     { "inform", "tell" },
